@@ -1,0 +1,18 @@
+import boto3
+
+instance_type = 't3.micro'
+ami_id = 'ami-09c6deea99698a37b'  
+key_name = 'Windows-SS'  
+region_name = 'eu-north-1'
+
+ec2 = boto3.client('ec2', region_name=region_name)
+
+response = ec2.run_instances(
+    ImageId=ami_id,
+    InstanceType=instance_type,
+    MinCount=1,
+    MaxCount=1,
+    KeyName=key_name
+)
+
+print(response)

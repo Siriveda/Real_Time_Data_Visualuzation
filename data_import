@@ -1,0 +1,23 @@
+import random
+import time
+import requests
+
+# Set up API endpoint and authentication
+api_endpoint = " https://lv804sk1u8.execute-api.eu-north-1.amazonaws.com/Deployment/data_visual"
+api_key = "lv804sk1u8"
+
+while True:
+    # Generate random data
+    data = {"timestamp": int(time.time()), "value": random.randint(0, 100)}
+
+    # Push data to AWS server
+    response = requests.post(api_endpoint, json=data, headers={"Authorization": f"Bearer {api_key}"})
+
+    # Check if data was sent successfully
+    if response.status_code == 200:
+        print("Data sent successfully!")
+    else:
+        print("Error sending data:", response.text)
+
+    # Wait 10 seconds before sending next data point
+    time.sleep(10)
